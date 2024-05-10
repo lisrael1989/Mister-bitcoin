@@ -126,11 +126,11 @@ const contacts = [
 
 function getContacts(filterBy = {}) {
   return new Promise((resolve, reject) => {
-    var contactsToReturn = contacts
+    let contactsToReturn = contacts
     if (filterBy.txt || filterBy.email || filterBy.phone) {
-      contactsToReturn = filter(filterBy)
+      contactsToReturn = filterContacts(filterBy)
     }
-    resolve(sort(contactsToReturn))
+    resolve(sortContacts(contactsToReturn))
   })
 }
 
@@ -193,28 +193,23 @@ function getEmptyContact() {
 //   })
 // }
 
-function filter({ txt = "", email = "", phone = "" }) {
+function filterContacts({ txt = "", email = "", phone = "" }) {
   const lowerTxt = txt.toLowerCase()
   const lowerEmail = email.toLowerCase()
   const lowerPhone = phone.toLowerCase()
 
   return contacts.filter(
     (contact) =>
-      contact.name.toLowerCase().includes(lowerTxt) ||
-      contact.email.toLowerCase().includes(lowerEmail) ||
-      contact.phone.toLowerCase().includes(lowerPhone)
+      (lowerTxt ? contact.name.toLowerCase().includes(lowerTxt) : true) &&
+      (lowerEmail ? contact.email.toLowerCase().includes(lowerEmail) : true) &&
+      (lowerPhone ? contact.phone.toLowerCase().includes(lowerPhone) : true)
   )
 }
 
-function sort(arr) {
+function sortContacts(arr) {
   return arr.sort((a, b) => {
-    if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
-      return -1
-    }
-    if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
-      return 1
-    }
-
+    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
     return 0
   })
 }
