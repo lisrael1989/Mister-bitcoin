@@ -1,10 +1,13 @@
 <template>
   <header class="app-header">
-    <h1>🪙Mr. Bitcoin</h1>
+    <div class="logo-section">
+      <!-- <img src="@/assets/Mr_Bitcoin_Logo.png" alt="Mr Bitcoin Logo" /> -->
+      <h2>🪙Mr. Bitcoin</h2>
+    </div>
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/car">Contacts</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/contacts">Contacts</RouterLink>
+      <RouterLink to="/Statistics">Statistics</RouterLink>
     </nav>
   </header>
 </template>
@@ -19,6 +22,17 @@ export default {}
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+}
+
+h2 {
+  font-weight: 600;
+}
+.logo-section {
+  display: flex;
+}
+img {
+  width: 50px;
+  border-radius: 50%;
 }
 nav a.router-link-exact-active {
   color: var(--color-text);
