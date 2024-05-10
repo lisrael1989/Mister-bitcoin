@@ -1,7 +1,6 @@
 <template>
   <header class="app-header">
     <div class="logo-section">
-      <!-- <img src="@/assets/Mr_Bitcoin_Logo.png" alt="Mr Bitcoin Logo" /> -->
       <h2>🪙Mr. Bitcoin</h2>
     </div>
     <nav>
@@ -47,6 +46,10 @@ nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+}
+
+nav a:hover {
+  background-color: lightyellow;
 }
 
 nav a:first-of-type {

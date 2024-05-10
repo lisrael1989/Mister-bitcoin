@@ -1,8 +1,8 @@
 export const contactService = {
-  query,
-  getById,
-  remove,
-  save,
+  getContacts,
+  getContactById,
+  deleteContact,
+  saveContact,
   getEmptyContact,
 }
 
@@ -124,24 +124,24 @@ const contacts = [
   },
 ]
 
-function query(filterBy = null) {
+function getContacts(filterBy = {}) {
   return new Promise((resolve, reject) => {
     var contactsToReturn = contacts
-    if (filterBy && filterBy.term) {
-      contactsToReturn = filter(filterBy.term)
+    if (filterBy.txt || filterBy.email || filterBy.phone) {
+      contactsToReturn = filter(filterBy)
     }
     resolve(sort(contactsToReturn))
   })
 }
 
-function getById(id) {
+function getContactById(id) {
   return new Promise((resolve, reject) => {
     const contact = contacts.find((contact) => contact._id === id)
     contact ? resolve(contact) : reject(`Contact id ${id} not found!`)
   })
 }
 
-function remove(id) {
+function deleteContact(id) {
   return new Promise((resolve, reject) => {
     const index = contacts.findIndex((contact) => contact._id === id)
     if (index !== -1) {
@@ -170,7 +170,7 @@ function _addContact(contact) {
   })
 }
 
-function save(contact) {
+function saveContact(contact) {
   return contact._id ? _updateContact(contact) : _addContact(contact)
 }
 
@@ -182,15 +182,28 @@ function getEmptyContact() {
   }
 }
 
-function filter(term) {
-  term = term.toLocaleLowerCase()
-  return contacts.filter((contact) => {
-    return (
-      contact.name.toLocaleLowerCase().includes(term) ||
-      contact.phone.toLocaleLowerCase().includes(term) ||
-      contact.email.toLocaleLowerCase().includes(term)
-    )
-  })
+// function filter(term) {
+//   term = term.toLocaleLowerCase()
+//   return contacts.filter((contact) => {
+//     return (
+//       contact.name.toLocaleLowerCase().includes(term) ||
+//       contact.phone.toLocaleLowerCase().includes(term) ||
+//       contact.email.toLocaleLowerCase().includes(term)
+//     )
+//   })
+// }
+
+function filter({ txt = "", email = "", phone = "" }) {
+  const lowerTxt = txt.toLowerCase()
+  const lowerEmail = email.toLowerCase()
+  const lowerPhone = phone.toLowerCase()
+
+  return contacts.filter(
+    (contact) =>
+      contact.name.toLowerCase().includes(lowerTxt) ||
+      contact.email.toLowerCase().includes(lowerEmail) ||
+      contact.phone.toLowerCase().includes(lowerPhone)
+  )
 }
 
 function sort(arr) {

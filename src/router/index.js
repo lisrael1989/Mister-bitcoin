@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 import ContactIndex from "../views/ContactIndex.vue"
+import ContactDetails from "../views/ContactDetails.vue"
+import ContactEdit from "../views/ContactEdit.vue"
 
-const router = createRouter({
+const routerOptions = {
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -31,6 +33,8 @@ const router = createRouter({
       component: () => import("../views/Statistics.vue"),
     },
   ],
-})
+}
+
+const router = createRouter(routerOptions)
 
 export default router

@@ -13,12 +13,4 @@
   padding: 20px;
   /* margin: 0 auto; */
 }
-
-@media (min-width: 1024px) {
-  .Statistics {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
 </style>

@@ -1,16 +1,17 @@
 <template>
+  <h2>Add Contact</h2>
   <h2 v-if="!contact">Loading...</h2>
   <form v-else @submit.prevent="save" class="contact-edit">
     <input v-model="contact.name" type="text" placeholder="name" />
     <input v-model="contact.email" type="email" placeholder="email" />
-    <input v-model="contact.phone" type="number" placeholder="phone" />
-    <button>Save</button>
+    <input v-model="contact.phone" type="text" placeholder="phone" />
+    <button class="save-contact-btn">Save</button>
   </form>
 </template>
 
 <script>
 import { contactService } from "@/services/contact.service"
-// import { showSuccessMsg } from "@/services/event-bus.service"
+import { showSuccessMsg } from "@/services/event-bus.service"
 
 export default {
   data() {
@@ -20,7 +21,7 @@ export default {
   },
   methods: {
     async save() {
-      await contactService.save(this.contact)
+      await contactService.saveContact(this.contact)
       showSuccessMsg("contact saved.")
       this.$router.push("/contact")
     },
@@ -46,8 +47,11 @@ export default {
   padding: 10px;
   background-color: rgb(245, 224, 145);
 
-  button {
+  & .save-contact-btn {
     place-self: end;
+    background-color: #333;
+    color: whitesmoke;
+    cursor: pointer;
   }
 }
 </style>

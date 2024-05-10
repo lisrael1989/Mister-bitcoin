@@ -20,9 +20,14 @@ export default {
   async created() {
     const { contactId } = this.$route.params
 
-    this.contact = await contactService.get(contactId)
+    this.contact = await contactService.getContactById(contactId)
   },
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.contact-details {
+  padding: 10px;
+  background-color: goldenrod;
+}
+</style>

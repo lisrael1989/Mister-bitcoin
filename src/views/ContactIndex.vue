@@ -1,15 +1,15 @@
 <template>
-  <h1>Contacts</h1>
-  <RouterLink to="/contact/edit"><button>Add a contact</button></RouterLink>
-  <!-- <contactFilter @filter="onFilter" /> -->
-  <ContactList @remove="removecontact" :contacts="contacts" />
+  <h2 class="contacts-title">Contacts List</h2>
+  <RouterLink to="/contact/edit"><button class="add-contact-btn">Add a contact</button></RouterLink>
+  <ContactFilter @filter="onFilter" />
+  <ContactList @remove="remove" :contacts="contacts" />
 </template>
 
 <script>
-import { contactService } from "@/services/contact.service.js"
-import contactList from "./cmps/ContactList.vue"
-import contactFilter from "../cmps/ContactFilter.vue"
-import { eventBusService, showErrorMsg, showSuccessMsg } from "@/services/event-bus.service"
+import { contactService } from "../services/contact.service.js"
+import ContactList from "@/cmps/ContactList.vue"
+import ContactFilter from "@/cmps/ContactFilter.vue"
+import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export default {
   data() {
@@ -18,31 +18,46 @@ export default {
     }
   },
   async created() {
-    this.contacts = await contactService.query()
+    this.contacts = await contactService.getContacts()
   },
   methods: {
-    async removecontact(contactId) {
+    async remove(contactId) {
       try {
-        await contactService.remove(contactId)
+        await contactService.deleteContact(contactId)
 
         const idx = this.contacts.findIndex((contact) => contact._id === contactId)
         this.contacts.splice(idx, 1)
 
-        // eventBusService.emit('show-user-msg', { txt: `contact ${contactId} deleted`, type: 'success', timeout: 4000 })
         showSuccessMsg(`contact ${contactId} deleted`)
       } catch (err) {
-        showErrorMsg("Couldnt delete contact")
+        showErrorMsg("Cant delete contact")
       }
     },
     async onFilter(filterBy) {
-      this.contacts = await contactService.query(filterBy)
+      this.contacts = await contactService.getContacts(filterBy)
     },
   },
   components: {
-    contactList,
-    contactFilter,
+    ContactFilter,
+    ContactList,
   },
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.contacts-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.add-contact-btn {
+  margin: 5px 10px;
+  background-color: #333;
+  color: whitesmoke;
+  padding: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>
