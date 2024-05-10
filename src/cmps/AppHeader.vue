@@ -6,7 +6,7 @@
     </div>
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/contacts">Contacts</RouterLink>
+      <RouterLink to="/contact">Contacts</RouterLink>
       <RouterLink to="/Statistics">Statistics</RouterLink>
     </nav>
   </header>
