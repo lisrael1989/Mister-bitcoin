@@ -1,7 +1,9 @@
 <template>
   <header class="app-header">
     <div class="logo-section">
-      <h2>🪙Mr. Bitcoin</h2>
+      <RouterLink to="/">
+        <h2>🪙Mr. Bitcoin</h2>
+      </RouterLink>
     </div>
     <nav>
       <RouterLink to="/">Home</RouterLink>

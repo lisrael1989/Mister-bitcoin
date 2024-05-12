@@ -1,9 +1,11 @@
 <template>
   <form class="contact-filter">
-    <h2>Filter</h2>
-    <input @input="onFilter" v-model="filterBy.txt" type="text" placeholder="By name" />
-    <input @input="onFilter" v-model="filterBy.email" type="text" placeholder="By email" />
-    <input @input="onFilter" v-model="filterBy.phone" type="text" placeholder="By phone" />
+    <div><h2>Filter</h2></div>
+    <div>
+      <input @input="onFilter" v-model="filterBy.txt" type="text" placeholder="By name" />
+      <input @input="onFilter" v-model="filterBy.email" type="text" placeholder="By email" />
+      <input @input="onFilter" v-model="filterBy.phone" type="text" placeholder="By phone" />
+    </div>
   </form>
 </template>
 
@@ -29,6 +31,8 @@ export default {
   align-items: center;
   justify-content: start;
   gap: 10px;
+  max-width: 1000px;
+  flex-wrap: wrap;
 
   padding: 10px;
   background-color: goldenrod;

@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .Statistics {
   display: flex;
-  width: 1000px;
+  max-width: 1000px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
