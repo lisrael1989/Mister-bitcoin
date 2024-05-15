@@ -4,13 +4,52 @@
       <li v-for="contact in contacts" :key="contact._id">
         <ContactPreview :contact="contact" />
         <div class="actions">
-          <RouterLink :to="`/contact/${contact._id}`"
-            ><button class="contacts-btn">Details</button></RouterLink
-          >
-          <RouterLink :to="`/contact/edit/${contact._id}`"
-            ><button class="contacts-btn">Edit</button></RouterLink
-          >
-          <button class="contacts-btn" @click="onRemove(contact._id)">🗑️</button>
+          <RouterLink :to="`/contact/${contact._id}`">
+            <button class="contacts-btn" title="Contact-Details">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="white"
+                width="20px"
+                height="20px"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z"
+                />
+              </svg>
+            </button>
+          </RouterLink>
+          <RouterLink :to="`/contact/edit/${contact._id}`">
+            <button class="contacts-btn" title="Edit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="white"
+                width="20px"
+                height="20px"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                />
+              </svg>
+            </button>
+          </RouterLink>
+          <button class="contacts-btn" title="Remove" @click="onRemove(contact._id)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="white"
+              width="20px"
+              height="20px"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"
+              />
+            </svg>
+          </button>
         </div>
       </li>
     </ul>
@@ -19,13 +58,24 @@
 
 <script>
 import ContactPreview from "../cmps/ContactPreview.vue"
+import axios from "axios"
 
 export default {
-  props: {
-    contacts: {
-      type: Array,
-      required: true,
-    },
+  data() {
+    return {
+      contacts: [],
+    }
+  },
+  async created() {
+    const response = await axios.get("https://randomuser.me/api/?results=10")
+    this.contacts = response.data.results.map((user) => ({
+      _id: user.login.uuid,
+      name: `${user.name.first} ${user.name.last}`,
+      email: user.email,
+      phone: user.phone,
+      balance: Math.floor(Math.random() * 10), // Random balance
+      picture: user.picture.medium,
+    }))
   },
   methods: {
     onRemove(contactId) {
@@ -56,16 +106,25 @@ export default {
   color: whitesmoke;
   border-radius: 8px;
   box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.434);
-
+  justify-items: center;
   .actions {
     margin-top: 20px;
     align-items: center;
     cursor: pointer;
 
     & .contacts-btn {
-      background-color: goldenrod;
+      background-color: #ea8b19;
       color: whitesmoke;
       cursor: pointer;
+      padding: 7px 10px;
+      border-radius: 8px;
+      align-items: center;
+      gap: 5px;
+      margin-right: 5px;
+      &:hover {
+        scale: 1.05;
+        rotate: -15deg;
+      }
     }
   }
 }

@@ -113,7 +113,7 @@
         </div>
 
         <div class="balancewrapper">
-          <span class="balanceHeading">Wallet balance</span>
+          <span class="balanceHeading">{{ user.name }}</span>
           <p class="balance"><span id="currency">$</span>{{ user.balance }}</p>
         </div>
 
@@ -132,7 +132,7 @@ export default {
     return {
       bitcoinRate: null,
       usdAmount: 0,
-      user: null,
+      user: "",
     }
   },
 
