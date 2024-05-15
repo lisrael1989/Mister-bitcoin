@@ -31,12 +31,18 @@ export default {
   align-items: center;
   justify-content: start;
   gap: 10px;
-  max-width: 1000px;
   flex-wrap: wrap;
-
   padding: 10px;
   background-color: goldenrod;
   color: whitesmoke;
   margin: 10px 10px;
+
+  & h2 {
+    color: white;
+  }
+
+  & input {
+    margin-right: 10px;
+  }
 }
 </style>

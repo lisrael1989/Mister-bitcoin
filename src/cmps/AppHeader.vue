@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="logo-section">
       <RouterLink to="/">
-        <h2>🪙Mr. Bitcoin</h2>
+        <h2 class="logo">🪙Mr. Bitcoin</h2>
       </RouterLink>
     </div>
     <nav>
@@ -25,9 +25,11 @@ export default {}
   padding: 10px;
 }
 
-h2 {
+.logo {
   font-weight: 600;
+  color: black;
 }
+
 .logo-section {
   display: flex;
 }
@@ -48,6 +50,7 @@ nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+  color: #ea8b19;
 }
 
 nav a:hover {
