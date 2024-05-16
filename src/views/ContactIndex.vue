@@ -1,5 +1,5 @@
 <template>
-  <h2 class="contacts-title">Contacts List</h2>
+  <ContactFilter @filter="onFilter" />
   <RouterLink to="/contact/edit"><button class="add-contact-btn">Add a contact</button></RouterLink>
   <ContactFilter @filter="onFilter" />
   <RouterLink to="/contact/edit">
@@ -12,7 +12,7 @@
 import { contactService } from "../services/contact.service.js"
 import ContactList from "@/cmps/ContactList.vue"
 import ContactFilter from "@/cmps/ContactFilter.vue"
-import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export default {
   data() {
@@ -27,10 +27,8 @@ export default {
     async remove(contactId) {
       try {
         await contactService.deleteContact(contactId)
-
         const idx = this.contacts.findIndex((contact) => contact._id === contactId)
         this.contacts.splice(idx, 1)
-
         showSuccessMsg(`contact ${contactId} deleted`)
       } catch (err) {
         showErrorMsg("Cant delete contact")
@@ -56,7 +54,7 @@ export default {
 }
 
 .add-contact-btn {
-  margin: 5px 10px;
+  margin: 10px 10px 10px;
   background-color: #333;
   color: whitesmoke;
   padding: 5px;
