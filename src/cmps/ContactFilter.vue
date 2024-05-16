@@ -35,7 +35,7 @@ export default {
   padding: 10px;
   background-color: goldenrod;
   color: whitesmoke;
-  margin: 10px 10px;
+  margin: 30px 10px 10px;
 
   & h2 {
     color: white;
