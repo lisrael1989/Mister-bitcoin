@@ -1,4 +1,5 @@
 import { getRandomInt } from "../services/util.service.js"
+import { storageService } from "./async-storage.service.js"
 
 export const contactService = {
   getContacts,
@@ -8,6 +9,7 @@ export const contactService = {
   getEmptyContact,
 }
 
+const CONTACT_DB = "contactDb"
 const contacts = [
   {
     _id: "5a56640269f443a5d64b32ca",

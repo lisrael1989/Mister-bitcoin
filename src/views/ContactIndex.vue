@@ -6,37 +6,39 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex"
 import { contactService } from "../services/contact.service.js"
 import ContactList from "@/cmps/ContactList.vue"
 import ContactFilter from "@/cmps/ContactFilter.vue"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export default {
-  data() {
-    return {
-      contacts: [],
-    }
+  computed: {
+    ...mapGetters({
+      contacts: "getContacts",
+    }),
   },
   async created() {
     this.contacts = await contactService.getContacts()
   },
   methods: {
-    async remove(contactId) {
+    ...mapActions(["loadContacts", "deleteContact"]),
+    async removeContact(contactId) {
       try {
-        await contactService.deleteContact(contactId)
-
-        const idx = this.contacts.findIndex((contact) => contact._id === contactId)
-        this.contacts.splice(idx, 1)
-
-        showSuccessMsg(`contact ${contactId} deleted`)
-      } catch (err) {
-        showErrorMsg("Cant delete contact")
+        this.deleteContact(contactId)
+        showSuccessMsg("Contacts deleted:", contactId)
+      } catch {
+        showErrorMsg("Couldn't delete contact", err)
       }
     },
-    async onFilter(filterBy) {
-      this.contacts = await contactService.getContacts(filterBy)
+    onFilter(filterBy) {
+      this.loadContacts(filterBy)
     },
   },
+  // async onFilter(filterBy) {
+  //   this.contacts = await contactService.getContacts(filterBy)
+  // },
+
   components: {
     ContactFilter,
     ContactList,

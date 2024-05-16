@@ -1,7 +1,7 @@
 <template>
+  <img :src="`https://robohash.org/${contact._id}`" alt="contact image" />
+
   <h2>{{ contact.name }}</h2>
-  <!-- <p>{{ contact.email }}</p>
-  <p>{{ contact.phone }}</p> -->
   <h3>🪙{{ contact.balance }}</h3>
 </template>
 
