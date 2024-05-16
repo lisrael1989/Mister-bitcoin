@@ -2,6 +2,9 @@
   <h2 class="contacts-title">Contacts List</h2>
   <RouterLink to="/contact/edit"><button class="add-contact-btn">Add a contact</button></RouterLink>
   <ContactFilter @filter="onFilter" />
+  <RouterLink to="/contact/edit">
+    <button class="add-contact-btn">Add a contact</button>
+  </RouterLink>
   <ContactList @remove="remove" :contacts="contacts" />
 </template>
 
