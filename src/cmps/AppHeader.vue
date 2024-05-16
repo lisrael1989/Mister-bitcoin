@@ -5,7 +5,6 @@
         <h2 class="logo">🪙Mr. Bitcoin</h2>
       </RouterLink>
     </div>
-    <div><p>Hello ,Israel Litvak</p></div>
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/contact">Contacts</RouterLink>

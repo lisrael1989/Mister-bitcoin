@@ -1,10 +1,8 @@
 <template>
-  <img :src="contact.picture" alt="contact image" class="contact-image" />
-
   <h2>{{ contact.name }}</h2>
-  <h3>🪙{{ contact.balance }}</h3>
   <!-- <p>{{ contact.email }}</p>
   <p>{{ contact.phone }}</p> -->
+  <h3>🪙{{ contact.balance }}</h3>
 </template>
 
 <script>
@@ -25,7 +23,6 @@ export default {
   flex-direction: column;
   text-align: center;
 }
-
 .contact-image {
   width: 100px;
   height: 100px;

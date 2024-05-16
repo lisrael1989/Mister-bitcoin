@@ -1,4 +1,4 @@
-import axios from "axios"
+import { getRandomInt } from "../services/util.service.js"
 
 export const contactService = {
   getContacts,
@@ -8,46 +8,179 @@ export const contactService = {
   getEmptyContact,
 }
 
-const BASE_URL = "https://randomuser.me/api/?results=10"
+const contacts = [
+  {
+    _id: "5a56640269f443a5d64b32ca",
+    name: "Ochoa Hyde",
+    email: "ochoahyde@renovize.com",
+    phone: "+1 (968) 593-3824",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a5664025f6ae9aa24a99fde",
+    name: "Hallie Mclean",
+    email: "halliemclean@renovize.com",
+    phone: "+1 (948) 464-2888",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a56640252d6acddd183d319",
+    name: "Parsons Norris",
+    email: "parsonsnorris@renovize.com",
+    phone: "+1 (958) 502-3495",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a566402ed1cf349f0b47b4d",
+    name: "Rachel Lowe",
+    email: "rachellowe@renovize.com",
+    phone: "+1 (911) 475-2312",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a566402abce24c6bfe4699d",
+    name: "Dominique Soto",
+    email: "dominiquesoto@renovize.com",
+    phone: "+1 (807) 551-3258",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a566402a6499c1d4da9220a",
+    name: "Shana Pope",
+    email: "shanapope@renovize.com",
+    phone: "+1 (970) 527-3082",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a566402f90ae30e97f990db",
+    name: "Faulkner Flores",
+    email: "faulknerflores@renovize.com",
+    phone: "+1 (952) 501-2678",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a5664027bae84ef280ffbdf",
+    name: "Holder Bean",
+    email: "holderbean@renovize.com",
+    phone: "+1 (989) 503-2663",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a566402e3b846c5f6aec652",
+    name: "Rosanne Shelton",
+    email: "rosanneshelton@renovize.com",
+    phone: "+1 (968) 454-3851",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a56640272c7dcdf59c3d411",
+    name: "Pamela Nolan",
+    email: "pamelanolan@renovize.com",
+    phone: "+1 (986) 545-2166",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a5664029a8dd82a6178b15f",
+    name: "Roy Cantu",
+    email: "roycantu@renovize.com",
+    phone: "+1 (929) 571-2295",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a5664028c096d08eeb13a8a",
+    name: "Ollie Christian",
+    email: "olliechristian@renovize.com",
+    phone: "+1 (977) 419-3550",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a5664026c53582bb9ebe9d1",
+    name: "Nguyen Walls",
+    email: "nguyenwalls@renovize.com",
+    phone: "+1 (963) 471-3181",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a56640298ab77236845b82b",
+    name: "Glenna Santana",
+    email: "glennasantana@renovize.com",
+    phone: "+1 (860) 467-2376",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a56640208fba3e8ecb97305",
+    name: "Malone Clark",
+    email: "maloneclark@renovize.com",
+    phone: "+1 (818) 565-2557",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a566402abb3146207bc4ec5",
+    name: "Floyd Rutledge",
+    email: "floydrutledge@renovize.com",
+    phone: "+1 (807) 597-3629",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a56640298500fead8cb1ee5",
+    name: "Grace James",
+    email: "gracejames@renovize.com",
+    phone: "+1 (959) 525-2529",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a56640243427b8f8445231e",
+    name: "Tanner Gates",
+    email: "tannergates@renovize.com",
+    phone: "+1 (978) 591-2291",
+    balance: getRandomInt(0, 100),
+  },
+  {
+    _id: "5a5664025c3abdad6f5e098c",
+    name: "Lilly Conner",
+    email: "lillyconner@renovize.com",
+    phone: "+1 (842) 587-3812",
+    balance: getRandomInt(0, 100),
+  },
+]
 
-async function getContacts(filterBy = {}) {
-  const response = await axios.get(BASE_URL)
-  let contactsToReturn = response.data.results.map((user) => ({
-    _id: user.login.uuid,
-    name: `${user.name.first} ${user.name.last}`,
-    email: user.email,
-    phone: user.phone,
-    balance: Math.floor(Math.random() * 100),
-    picture: user.picture.medium,
-  }))
-
-  if (filterBy.txt || filterBy.email || filterBy.phone) {
-    contactsToReturn = filterContacts(contactsToReturn, filterBy)
-  }
-
-  return sortContacts(contactsToReturn)
+function getContacts(filterBy = {}) {
+  return new Promise((resolve) => {
+    let contactsToReturn = contacts.map((contact) => {
+      if (!contact.balance) {
+        contact.balance = getRandomInt(0, 100)
+      }
+      return contact
+    })
+    if (filterBy.txt || filterBy.email || filterBy.phone) {
+      contactsToReturn = filterContacts(filterBy)
+    }
+    resolve(sortContacts(contactsToReturn))
+  })
 }
 
 function getContactById(id) {
   return new Promise((resolve, reject) => {
     const contact = contacts.find((contact) => contact._id === id)
+    if (contact && !contact.balance) {
+      contact.balance = getRandomInt(0, 100)
+    }
     contact ? resolve(contact) : reject(`Contact id ${id} not found!`)
   })
 }
 
 function deleteContact(id) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const index = contacts.findIndex((contact) => contact._id === id)
     if (index !== -1) {
       contacts.splice(index, 1)
     }
-
     resolve(contacts)
   })
 }
 
 function _updateContact(contact) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const index = contacts.findIndex((c) => contact._id === c._id)
     if (index !== -1) {
       contacts[index] = contact
@@ -57,8 +190,9 @@ function _updateContact(contact) {
 }
 
 function _addContact(contact) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     contact._id = _makeId()
+    contact.balance = getRandomInt(0, 100)
     contacts.push(contact)
     resolve(contact)
   })
@@ -73,10 +207,11 @@ function getEmptyContact() {
     name: "",
     email: "",
     phone: "",
+    balance: getRandomInt(0, 100),
   }
 }
 
-function filterContacts(contacts, { txt = "", email = "", phone = "" }) {
+function filterContacts({ txt = "", email = "", phone = "" }) {
   const lowerTxt = txt.toLowerCase()
   const lowerEmail = email.toLowerCase()
   const lowerPhone = phone.toLowerCase()

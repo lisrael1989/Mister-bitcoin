@@ -58,24 +58,13 @@
 
 <script>
 import ContactPreview from "../cmps/ContactPreview.vue"
-import axios from "axios"
 
 export default {
-  data() {
-    return {
-      contacts: [],
-    }
-  },
-  async created() {
-    const response = await axios.get("https://randomuser.me/api/?results=10")
-    this.contacts = response.data.results.map((user) => ({
-      _id: user.login.uuid,
-      name: `${user.name.first} ${user.name.last}`,
-      email: user.email,
-      phone: user.phone,
-      balance: Math.floor(Math.random() * 10), // Random balance
-      picture: user.picture.medium,
-    }))
+  props: {
+    contacts: {
+      type: Array,
+      required: true,
+    },
   },
   methods: {
     onRemove(contactId) {
@@ -116,11 +105,12 @@ export default {
       background-color: #ea8b19;
       color: whitesmoke;
       cursor: pointer;
-      padding: 7px 10px;
+      padding: 3px 5px;
       border-radius: 8px;
       align-items: center;
       gap: 5px;
       margin-right: 5px;
+      border: none;
       &:hover {
         scale: 1.05;
         rotate: -15deg;

@@ -9,5 +9,6 @@ const user = {
 }
 
 function getUser() {
+  // Mimicking an async call:
   return Promise.resolve(user)
 }
