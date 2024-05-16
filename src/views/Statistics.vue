@@ -1,6 +1,6 @@
 <template>
+  <h1>Statistics Page</h1>
   <div class="Statistics">
-    <h1>Statistics Page</h1>
     <BarChart
       v-if="monthlyLabels.length && monthlyValues.length"
       :labels="monthlyLabels"
@@ -77,5 +77,14 @@ export default {
   margin-top: 50px;
   padding: 20px;
   margin: 0 auto;
+}
+
+h1 {
+  background-color: #ea8b19;
+  width: 100%;
+  text-align: center;
+  color: whitesmoke;
+  margin-top: 20px;
+  font-weight: 600;
 }
 </style>

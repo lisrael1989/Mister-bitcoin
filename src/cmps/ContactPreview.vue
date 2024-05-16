@@ -1,5 +1,5 @@
 <template>
-  <img :src="`https://robohash.org/${contact._id}`" alt="contact image" />
+  <img :src="`https://robohash.org/${contact._id}`" alt="contact image" class="contact-image" />
 
   <h2>{{ contact.name }}</h2>
   <h3>🪙{{ contact.balance }}</h3>

@@ -82,7 +82,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 10px;
-
   list-style: none;
   padding: 10px;
 }
@@ -96,6 +95,13 @@ export default {
   border-radius: 8px;
   box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.434);
   justify-items: center;
+
+  &:hover {
+    border: 2px solid #ea8b19;
+    transform: scale(1.07);
+    box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.5);
+  }
+
   .actions {
     margin-top: 20px;
     align-items: center;

@@ -1,5 +1,5 @@
 <template>
-  <h2 class="contacts-title">Contacts List</h2>
+  <!-- <h2 class="contacts-title">Contacts List</h2> -->
   <ContactFilter @filter="onFilter" />
   <RouterLink to="/contact/edit"><button class="add-contact-btn">Add a contact</button></RouterLink>
   <ContactList @remove="remove" :contacts="contacts" />
