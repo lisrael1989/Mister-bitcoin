@@ -4,11 +4,56 @@
       <section>
         <h1 class="title">Welcome to Mr. Bitcoin</h1>
         <h3>Where You can exchange bitcoin fast and easily</h3>
-        <p class="bitcoin-rate" v-if="bitcoinRate">
-          Current Bitcoin rate:<span>{{ bitcoinRate }}</span> BTC per <span>1</span> USD
-        </p>
-        <p v-else>Loading Bitcoin rate...</p>
+
+        <img :src="imgSrc" alt="main-img" class="main-img" />
       </section>
+    </section>
+    <section>
+      <div class="walletBalanceCard">
+        <div class="svgwrapper">
+          <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect
+              x="0.539915"
+              y="6.28937"
+              width="21"
+              height="4"
+              rx="1.5"
+              transform="rotate(-4.77865 0.539915 6.28937)"
+              fill="#7D6B9D"
+              stroke="black"
+            ></rect>
+            <circle
+              cx="11.5"
+              cy="5.5"
+              r="4.5"
+              fill="#E7E037"
+              stroke="#F9FD50"
+              stroke-width="2"
+            ></circle>
+            <path
+              d="M2.12011 6.64507C7.75028 6.98651 12.7643 6.94947 21.935 6.58499C22.789 6.55105 23.5 7.23329 23.5 8.08585V24C23.5 24.8284 22.8284 25.5 22 25.5H2C1.17157 25.5 0.5 24.8284 0.5 24V8.15475C0.5 7.2846 1.24157 6.59179 2.12011 6.64507Z"
+              fill="#ea8b19"
+              stroke="black"
+            ></path>
+            <path
+              d="M16 13.5H23.5V18.5H16C14.6193 18.5 13.5 17.3807 13.5 16C13.5 14.6193 14.6193 13.5 16 13.5Z"
+              fill="#ea8b19"
+              stroke="black"
+            ></path>
+          </svg>
+        </div>
+
+        <div class="balancewrapper">
+          <span class="balanceHeading">{{ user.name }}</span>
+          <p class="balance"><span id="currency">$</span>{{ user.balance }}</p>
+        </div>
+
+        <button class="addmoney"><span class="plussign">+</span>Add Money</button>
+      </div>
+      <p class="bitcoin-rate" v-if="bitcoinRate">
+        Today rate:<span>{{ bitcoinRate }}</span> BTC per <span>1</span> USD
+      </p>
+      <p v-else>Loading Bitcoin rate...</p>
       <div class="usd-to-btc-converter" v-if="bitcoinRate">
         <h4>Convert USD to BTC</h4>
         <label for="usdAmount">Enter USD amount:</label>
@@ -77,55 +122,13 @@
         </span>
       </button>
     </section>
-    <section>
-      <div class="walletBalanceCard">
-        <div class="svgwrapper">
-          <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect
-              x="0.539915"
-              y="6.28937"
-              width="21"
-              height="4"
-              rx="1.5"
-              transform="rotate(-4.77865 0.539915 6.28937)"
-              fill="#7D6B9D"
-              stroke="black"
-            ></rect>
-            <circle
-              cx="11.5"
-              cy="5.5"
-              r="4.5"
-              fill="#E7E037"
-              stroke="#F9FD50"
-              stroke-width="2"
-            ></circle>
-            <path
-              d="M2.12011 6.64507C7.75028 6.98651 12.7643 6.94947 21.935 6.58499C22.789 6.55105 23.5 7.23329 23.5 8.08585V24C23.5 24.8284 22.8284 25.5 22 25.5H2C1.17157 25.5 0.5 24.8284 0.5 24V8.15475C0.5 7.2846 1.24157 6.59179 2.12011 6.64507Z"
-              fill="#ea8b19"
-              stroke="black"
-            ></path>
-            <path
-              d="M16 13.5H23.5V18.5H16C14.6193 18.5 13.5 17.3807 13.5 16C13.5 14.6193 14.6193 13.5 16 13.5Z"
-              fill="#ea8b19"
-              stroke="black"
-            ></path>
-          </svg>
-        </div>
-
-        <div class="balancewrapper">
-          <span class="balanceHeading">{{ user.name }}</span>
-          <p class="balance"><span id="currency">$</span>{{ user.balance }}</p>
-        </div>
-
-        <button class="addmoney"><span class="plussign">+</span>Add Money</button>
-      </div>
-    </section>
   </main>
 </template>
 
 <script>
 import { bitcoinService } from "@/services/bitcoin.service"
 import { userService } from "@/services/user.service.js"
+import imgSrc from "../assets/2.jpg"
 
 export default {
   data() {
@@ -133,6 +136,7 @@ export default {
       bitcoinRate: null,
       usdAmount: 0,
       user: "",
+      imgSrc,
     }
   },
 
@@ -161,12 +165,26 @@ main {
     width: fit-content;
     padding: 5px;
     border-radius: 8px;
+    margin-top: 20px;
+    font-size: 1em;
 
     & span {
       font-weight: 600;
     }
   }
 
+  .title {
+    font-size: 2.5em;
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  .main-img {
+    width: 350px;
+  }
   .usd-to-btc-converter {
     margin-top: 20px;
     display: flex;
@@ -198,6 +216,7 @@ main {
   border: 3px solid #ea8b19;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  margin-top: 20px;
 }
 
 .star-1 {
